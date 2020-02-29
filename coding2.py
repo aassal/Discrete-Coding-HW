@@ -3,7 +3,6 @@
 
 #YOUR NAME: Amina Assal, Fernando Perez-Hickman
 #YOUR UNI: aa4290, fp2390
-#making another change to file
 
 import itertools
 
@@ -18,19 +17,20 @@ string: 'prop' in string form
 '''
 def format_prop(prop):
     # BASE CASE: #####################################
-    if # fill in here #:
-        return # fill in return value here #
+    if len(prop) == 1:
+        return prop[0]
     ##################################################
 
     # UNARY OPERATOR (not): ##########################
     if 2 == len(prop):
         # the following two variable declarations are missing LHS #
-        = prop[0] # missing LHS
-        = prop[1] # missing LHS
+        op = prop[0] # missing LHS
+        p1 = prop[1] # missing LHS
+        statement = format_prop(p1)
 
         if "not" == op:
-            formatted_prop = # fill in here #
-            return formatted_prop
+            formatted_prop = op + " " + "(" + statement + ")"
+            return (formatted_prop)
         else:
             raise ValueError("Unary proposition is not not.")
     ##################################################
@@ -38,9 +38,11 @@ def format_prop(prop):
     # BINARY OPERATOR (and, or, if, iff, xor): #######
     elif 3 == len(prop):
         # the following three variable declarations are missing LHS #
-        = prop[0] # missing LHS
-        = prop[1] # missing LHS
-        = prop[2] # missing LHS
+        op = prop[0] # missing LHS
+        p1 = prop[1] # missing LHS
+        statement1 = format_prop(p1)
+        p2 = prop[2] # missing LHS
+        statement2 = format_prop(p2)
 
         if op not in ("if", "iff", "or", "and", "xor"):
             raise ValueError("Binary proposition does not have valid connectives.")
@@ -49,13 +51,12 @@ def format_prop(prop):
         if "if" == op:
             op = "->"
         elif "iff" == op:
-            op = "<->
+            op = "<->"
 
         # format left and right sides of a binary operation
-        left_prop = # fill in here #
-        right_prop = # fill in here #
-
-        formatted_prop = # fill in here #
+        left_prop = statement1
+        right_prop = statement2
+        formatted_prop = "(" + left_prop + ")" + " " + op + " " + "(" + right_prop + ")"
         return formatted_prop
     ####################################################
 
@@ -78,20 +79,24 @@ int: 0 for False, 1 for True
 '''
 def eval_prop(prop, values):
     # BASE CASE: #####################################
-    if # fill in here #:
+    if len(prop) == 1:
         # fill in here # 
-        atomic_prop_id =  # ignore the first character of your proposition variable
-        return # fill in here #
+        atomic_prop_id =  int(values[0])
+        return atomic_prop_id
     ##################################################
 
     # UNARY OPERATOR (not): ##########################
     elif 2 == len(prop):
         # the following two variable declarations are missing LHS #
-        = prop[0] # missing LHS
-        = prop[1] # missing LHS
+        op = prop[0] # missing LHS
+        p1 = prop[1] # missing LHS
+        statement = eval_prop(p1, values)
 
         if "not" == op:
-            return # fill in here # 
+            if values[0] == 0:
+                return 1
+            if values[0] == 1:
+                return 0
         else:
             raise ValueError("Unary proposition is not not.")
     ##################################################
@@ -99,28 +104,41 @@ def eval_prop(prop, values):
     # BINARY OPERATOR (and, or, if, iff, xor): #######
     elif 3 == len(prop):
         # the following three variable declarations are missing LHS #
-        = prop[0] # missing LHS
-        = prop[1] # missing LHS
-        = prop[2] # missing LHS
+        op = prop[0] # missing LHS
+        p1 = prop[1] # missing LHS
+        statement1 = eval_prop(p1, values)
+        p2 = prop[2] # missing LHS
+        statement2 = eval_prop(p2, values)
 
         if op not in ("if", "iff", "or", "and", "xor"):
             raise ValueError("Binary proposition does not have valid connectives.")
 
         # evaluate left and right sides of a binary operation
-        left = # fill in here #
-        right = # fill in here #
+        left = values[0]
+        right = values[1]
+        #value of each prop to be evaluated in the end
 
         # the line here is an example. fill in the rest.
         if "and" == op:
             return int(left and right)
-        elif # fill in :
-            return # fill in here #
-        elif # fill in :
-            return # fill in here #
-        elif # fill in :
-            return # fill in here #
+        elif "or" == op:
+            return int(left or right)
+        elif "if" == op:
+            if left == 1 and right == 0:
+                return 0
+            return 1
+        elif "iff" == op:
+            if left == 1 and right == 0:
+                return 0
+            if right == 1 and left == 0:
+                return 0
+            return 1
         else: # fill in :
-            return # fill in here #
+            if left == 1 and right == 0:
+                return 1
+            if right == 1 and left == 0:
+                return 1
+            return 0
 
     # INVALID LENGTH ####################################
     else:
@@ -193,6 +211,6 @@ if __name__ == '__main__':
     prop_val = eval_prop(prop, values)
     print("over", ps_str, ":", prop_val)
 
-    print("---------------------------------------------------")
-    print("Table:")
-    print_table(["if", ["and", ["p1"], ["not", ["p2"]]], ["p3"]], 3)
+    # print("---------------------------------------------------")
+    # print("Table:")
+    # print_table(["if", ["and", ["p1"], ["not", ["p2"]]], ["p3"]], 3)
