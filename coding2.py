@@ -1,8 +1,8 @@
 #COMS3203 DISCRETE MATHEMATICS
 #CODING ASSIGNMENT 2
 
-#YOUR NAME:
-#YOUR UNI:
+#YOUR NAME: Amina Assal, Fernando Perez-Hickman
+#YOUR UNI: aa4290, fp2390
 
 import itertools
 
