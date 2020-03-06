@@ -121,8 +121,16 @@ def eval_prop(prop, values):
         # the line here is an example. fill in the rest.
         if "and" == op:
             return int(left and right)
+            # if left and right == True:
+            #     return 1
+            # else:
+            #     return 0
         elif "or" == op:
             return int(left or right)
+            # if left and right == False:
+            #     return 0
+            # else:
+            #     return 1
         elif "if" == op:
             if left == 1 and right == 0:
                 return 0
@@ -157,12 +165,27 @@ Returns:
 None
 '''
 def print_table(prop, n_var):
+    
+    i=1
+    row1 = ""
+    while i<=+n_var:
+        row1+=("| p" + str(i) + " ")
+        i+=1
+    print(row1 + "| " + str(format_prop(prop)))
+
+    values = [0,1]
+    combinations = itertools.product(values, repeat=n_var)
+
+    for c in combinations:
+        truth_values = [c[0], c[1], c[2]]
+        print("| " + str(c[0]) + "  | " + str(c[1]) + "  | " + str(c[2]) + "  | " + str(eval_prop(prop, truth_values)))
+      
     '''
     fill in here. you will have to use eval_prop and format_prop,
     and will probably have to use the itertools package (already
     imported for you).
     '''
-    pass
+    # pass
 
 
 if __name__ == '__main__':
@@ -211,6 +234,6 @@ if __name__ == '__main__':
     prop_val = eval_prop(prop, values)
     print("over", ps_str, ":", prop_val)
 
-    # print("---------------------------------------------------")
-    # print("Table:")
-    # print_table(["if", ["and", ["p1"], ["not", ["p2"]]], ["p3"]], 3)
+    print("---------------------------------------------------")
+    print("Table:")
+    print_table(["if", ["and", ["p1"], ["not", ["p2"]]], ["p3"]], 3)
